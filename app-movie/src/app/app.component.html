@@ -1,0 +1,12 @@
+<header class="bg-blue-950 text-white flex justify-center p-8 w-full">
+  <h1 class="text-2xl font-bold align-middle">MY MOVIE APP</h1>
+</header>
+<div class="flex justify-around text-blue-900">
+  <span class="hover:text-blue-500 p-3">
+    <a [routerLink]="['/now-playing']">En Cartelera</a>
+  </span>
+  <span class="hover:text-blue-500 p-3">
+    <a class="hover:text-blue-500" [routerLink]="['/popular']">Popular</a>
+  </span>
+</div>
+<router-outlet></router-outlet>
