@@ -11,6 +11,7 @@ export class MovieService {
 
   constructor(private http: HttpClient) {}
 
+
   getNowPlaying(page: number=1, searchParams?: any): Observable<any> {
     //parametros del endppoint now-playing, pero manipulandolo para ordenarlo por fecha de mayor a menor y para búsqued
     // no use el endpoint como tal de https://api.themoviedb.org/3/movie/now_playing, para manipular las búsquedas
@@ -41,13 +42,22 @@ export class MovieService {
         params = params.set('primary_release_date.lte', searchParams.endDate);
       }
     }
-    // return this.http.get(`${this.apiUrl}/movie/now_playing?api_key=${this.apiKey}&page=${page}`);
     // return this.http.get(`${this.apiUrl}/movie/now_playing`, {params});
     return this.http.get(`${this.apiUrl}/discover/movie`, { params });
   }
 
   getPopularMovies(page: number=1, searchParams?:any): Observable<any> {
-    let params = new HttpParams().set('api_key', this.apiKey).set('page', page.toString());
+    //discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200'
+    let params = new HttpParams().set('api_key', this.apiKey)
+                              .set('include_adult', false)
+                              .set('include_video', false)
+                              .set('language', 'en-US')
+                              .set('page', page.toString())
+                              .set('sort_by', 'vote_average.desc') //
+                              .set('without_genres','99,10755')
+                              .set('vote_count.gte', '200')
+                              .set('release_date.gte', '{min_date}')
+                              .set('release_date.lte', '{max_date}');
 
     if(searchParams){
       if(searchParams.query){
@@ -63,10 +73,24 @@ export class MovieService {
     }
 
     // return this.http.get(`${this.apiUrl}/movie/popular?api_key=${this.apiKey}&page=${page}`);
-    return this.http.get(`${this.apiUrl}/movie/popular`, {params});
+    return this.http.get(`${this.apiUrl}/discover/movie`, {params});
   }
 
+  //get movie details
   getMovieDetails(movieId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/movie/${movieId}?api_key=${this.apiKey}`);
+  }
+  // get movie credits
+  getMovieCredits(movieId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/movie/${movieId}/credits?api_key=${this.apiKey}`);
+  }
+  //get related movies
+  getRelatedMovies(movieId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/movie/${movieId}/similar?api_key=${this.apiKey}`);
+  }
+
+  // method post, vote Movie
+  voteMovie(movieId: number, value: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}`, { value });
   }
 }
