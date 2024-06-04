@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold mb-4">EN CARTELERA</h1>
   <!-- form for search -->
   <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="mb-6 flex justify-center items-center flex-wrap">
-    <input type="text" formControlName="query" placeholder="Película" class="border p-2 mr-2 w-1/2 mb-2">
+    <input type="text" formControlName="query" placeholder="Buscar peli" class="border p-2 mr-2 w-1/2 mb-2">
       <input type="date" formControlName="startDate" class="border p-2 mr-2 mb-2">
       <input type="date" formControlName="endDate" class="border p-2 mr-2 mb-2">
       <button class="bg-blue-500 text-white p-2 mb-2" type="submit">Filter</button>
@@ -11,7 +11,7 @@
     <div *ngFor="let movie of movies" class="border rounded shadow-md p-5">
       <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="mb-2">
       <h2 class="text-lg font-semibold">{{ movie.title }}</h2>
-      <p>Rating: {{movie.vote_average}}</p>
+      <p>Puntuación: <strong>{{movie.vote_average}}</strong></p>
       <p class="text-sm">{{ movie.release_date }}</p>
       <a [routerLink]="['/movie', movie.id]" class="text-blue-500 hover:underline">Ver detalle</a>
     </div>

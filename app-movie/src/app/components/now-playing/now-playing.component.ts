@@ -46,6 +46,7 @@ export class NowPlayingComponent implements OnInit {
     });
   }
 
+  //load the movies
   loadMovies():void{
     if(this.currentPage > this.totalPages) return;
     const searchParams = this.filterForm.value;
@@ -56,10 +57,12 @@ export class NowPlayingComponent implements OnInit {
     });
   }
 
+  //active loadMovies when the user make scroll
   onScroll(): void{
     this.loadMovies();
   }
 
+  //when the user apply filters
   onSubmit(): void{
     this.currentPage = 1;
     this.movies = [];
