@@ -9,13 +9,17 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { CallbackComponent } from './components/callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NowPlayingComponent,
     PopularMoviesComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    LoginComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

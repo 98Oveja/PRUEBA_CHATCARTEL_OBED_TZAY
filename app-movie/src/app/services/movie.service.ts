@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 export class MovieService {
   private apiUrl = 'https://api.themoviedb.org/3';
   private apiKey = '25adcd44887b4ce3d640721e22c185ef';
+  // private sessionId:string | null = localStorage.getItem('sessionId');
 
   constructor(private http: HttpClient) {}
-
 
   getNowPlaying(page: number=1, searchParams?: any): Observable<any> {
     //parametros del endppoint now-playing, pero manipulandolo para ordenarlo por fecha de mayor a menor y para búsqued
@@ -93,4 +93,31 @@ export class MovieService {
   voteMovie(movieId: number, value: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/movie/${movieId}/rating?api_key=${this.apiKey}`, { value });
   }
+
+// #########################
+// ## autentication
+// #################
+  // getRequestToken(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/authentication/token/new`, {
+  //     params: new HttpParams().set('api_key', this.apiKey)
+  //   });
+  // }
+
+  // createSession(requestToken: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/authentication/session/new`, {
+  //     request_token: requestToken
+  //   }, {
+  //     params: new HttpParams().set('api_key', this.apiKey)
+  //   });
+  // }
+
+  // setSessionId(sessionId: string): void {
+  //   this.sessionId = sessionId;
+  //   localStorage.setItem('sessionId', sessionId);
+  // }
+
+  // getSessionId(): string | null {
+  //   return this.sessionId;
+  // }
+
 }
